@@ -136,7 +136,8 @@
     P(c.rubor, 11, 9 + by);
     P(c.boca, 8, 10 + by, 2, 1);
     if (c.lentes) {
-      const f = '#c9a24a';
+      const f = '#7a5326', v = '#eef4fc';       // armazón fino de bronce + cristales claros
+      P(v, 6, 7 + by, 1, 2); P(v, 9, 7 + by, 1, 2);
       P(f, 6, 6 + by, 2, 1); P(f, 9, 6 + by, 2, 1);
       P(f, 5, 7 + by, 1, 2); P(f, 8, 7 + by, 1, 2); P(f, 11, 7 + by, 1, 2);
       P(f, 6, 9 + by, 2, 1); P(f, 9, 9 + by, 2, 1);
@@ -162,6 +163,24 @@
     '.....BBBBBB.....'
   ];
 
+  // La misma cabeza SIN barba: la mandíbula se queda dentro del ancho de la cara
+  // (columnas 4-11) y las orejas asoman a los lados.
+  const CABEZA_MANI_LIMPIA = [
+    '......HHH.......',
+    '.....HHhHHH.....',
+    '....HHHHHHHH....',
+    '...HHHHHHHHHH...',
+    '...HHHHHHHHHH...',
+    '...HSSSSSSSSH...',
+    '...HSFFSSFFSH...',
+    '...HFLEFFLEFH...',
+    '...SFLEFFLEFS...',
+    '...SSFFSSFFSS...',
+    '....SSSSSSSS....',
+    '....SSMWWMSS....',
+    '.....SSSSSS.....'
+  ];
+
   function dibujarMani(x, c, p) {
     const P = pintor(x), by = p.by;
     piernas(P, c, p, 5, 8, 3);
@@ -185,14 +204,15 @@
       B: c.barba ? c.barbaCol : c.piel,
       M: c.boca, W: '#fff5ee'
     };
-    for (let y = 0; y < CABEZA_MANI.length; y++) {
-      const fila = CABEZA_MANI[y];
+    const cabeza = c.barba ? CABEZA_MANI : CABEZA_MANI_LIMPIA;
+    for (let y = 0; y < cabeza.length; y++) {
+      const fila = cabeza[y];
       for (let xx = 0; xx < fila.length; xx++) {
         const k = fila[xx];
         if (k !== '.') P(col[k], xx, y + by);
       }
     }
-    // mechón de brillo en el cuello para separar la barba de la camisa
+    // sombra bajo la barbilla: separa la cabeza de la camisa
     P(c.pielSom, 7, 13 + by, 2, 1);
   }
 

@@ -10,16 +10,16 @@ window.DATOS = {
   dedicatoria: "Para mi Anita banana",
 
   /* ---- Personajes (pixel art dibujado con código) ----
-     En datos.md "lentes/accesorios" quedó sin llenar; las fotos muestran que
-     Mani usa lentes redondos y barba, y que Ana a veces usa lentes.
-     Cambia true/false para ajustar.                                        */
+     En datos.md "lentes/accesorios" quedó sin llenar. Ahora: Ana con lentes
+     y Mani con lentes redondos y sin barba. Cambia true/false para ajustar
+     (lentes: true/false · barba: true/false).                              */
   personajes: {
     ella: {
       nombre: "Ana",
       apodo: "Anita banana",
       pelo: "#241b2f",          // negro
       largoPelo: "medio",       // "medio" (hasta el pecho) | "corto"
-      lentes: false,
+      lentes: true,
       piel: "#e3ab83",
       ropa: "#a46fd9"           // morado, su color favorito
     },
@@ -28,7 +28,7 @@ window.DATOS = {
       pelo: "#1e1a24",          // negro, corto
       largoPelo: "corto",
       lentes: true,
-      barba: true,
+      barba: false,
       piel: "#d9a074",
       ropa: "#4f7fb8"
     }
