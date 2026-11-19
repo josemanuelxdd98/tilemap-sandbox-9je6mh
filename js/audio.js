@@ -1,8 +1,6 @@
 /* ==========================================================================
    AUDIO
    · Efectos de sonido sintetizados con WebAudio (no hay archivos de audio).
-   · Música de fondo opcional: si existe "cancion.mp3" junto a index.html se
-     reproduce en bucle (después del primer toque, como exigen los celulares).
    · Botón de silencio (guarda la preferencia en el navegador).
    ========================================================================== */
 (function (App) {
@@ -32,25 +30,11 @@
 
   const A = {
     activo: true,
-    musica: null,
-    musicaError: false,
 
-    init: function () {
-      this.activo = leer();
-      const a = new Audio();
-      a.loop = true;
-      a.preload = 'auto';
-      a.volume = 0.5;
-      a.addEventListener('error', function () { A.musicaError = true; });
-      a.src = 'cancion.mp3';
-      this.musica = a;
-      document.addEventListener('visibilitychange', function () {
-        if (!A.musica) return;
-        if (document.hidden) A.musica.pause(); else A._tocarMusica();
-      });
-    },
+    init: function () { this.activo = leer(); },
 
-    // Llamar dentro de un gesto del usuario (clic en "Jugar")
+    // Llamar dentro de un gesto del usuario (clic en "Jugar"): los celulares
+    // no dejan sonar nada hasta el primer toque.
     desbloquear: function () {
       if (!ctx) {
         const C = window.AudioContext || window.webkitAudioContext;
@@ -64,21 +48,11 @@
         }
       }
       if (ctx && ctx.state === 'suspended') ctx.resume();
-      this._iniciado = true;
-      this._tocarMusica();
-    },
-
-    _tocarMusica: function () {
-      if (!this._iniciado || !this.musica || this.musicaError) return;
-      if (!this.activo) { this.musica.pause(); return; }
-      const p = this.musica.play();
-      if (p && p.catch) p.catch(function () {});
     },
 
     alternar: function () {
       this.activo = !this.activo;
       guardar(this.activo);
-      if (this.activo) this._tocarMusica(); else if (this.musica) this.musica.pause();
       return this.activo;
     },
 
