@@ -1,0 +1,6 @@
+# No se publican en GitHub: solo sirven en tu computadora
+herramientas/
+datos.md
+README.md
+.claude/
+__pycache__/
